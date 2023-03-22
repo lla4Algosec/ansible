@@ -1,0 +1,45 @@
+---
+- uri:
+    url: "https://{{ asms_server }}/BusinessFlow/rest/v1/network_objects/find?address={{item.content}}&type=EXACT"
+    validate_certs: no
+    method: GET
+    headers:
+      Cookie: "{{ login.set_cookie }}"
+    body_format: json
+    return_content: yes
+#    status_code: 200
+  register: find
+
+# - debug:
+#     var: find.json[0].name
+
+# Algosec AppViz find rest API call return empty or
+# "find.json": [
+#     {
+#         "createdDate": 1588260293778,
+#         "customFields": [],
+#         "ipAddresses": [
+#             "8.8.8.4"
+#         ],
+#         "lastUpdateDate": 1588260293783,
+#         "name": "GoogleDNS2",
+#         "objectID": 39,
+#         "objectType": "Host",
+#         "origin": "Imported",
+#         "revisionID": 39
+#     }
+# ]
+
+# Create AppViz network object when object content does not exist (no additional checks)
+- uri:
+    url: https://{{ asms_server }}/BusinessFlow/rest/v1/network_objects/new
+    validate_certs: no
+    method: POST
+    headers:
+      Cookie: "{{ login.set_cookie }}"
+    body:
+      name: '{{ item.name }}'
+      type: '{{ item.type }}'
+      content: '{{ item.content }}'
+    body_format: json
+  when: find.json[0].name is not defined

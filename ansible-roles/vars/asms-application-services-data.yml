@@ -1,0 +1,10 @@
+---
+# Application services
+# name: service name
+# port: port number,
+# protocol: protocol to set for the name
+
+asms_services:
+  - { name: UDP/53, port: 53, protocol: UDP }
+  - { name: TCP/53, port: 53, protocol: TCP }
+  - { name: TCP/22, port: 22, protocol: TCP }

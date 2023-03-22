@@ -1,0 +1,91 @@
+# {"name": "Zorg DNS", "labels": [], "contacts": [], "custom_fields": [], "flows": [{"name": 0, "custom_fields": [], "sources": [{"name": "Admins"}], "type": "APPLICATION", "services": [{"name": "TCP/22"}], "users": [], "comment": "", "network_applications": [], "destinations": [{"name": "DNS1"}, {"name": "DNS2"}]}, {"name": 1, "custom_fields": [], "sources": [{"name": "Consumers"}], "type": "APPLICATION", "services": [{"name": "UDP/53"}, {"name": "TCP/53"}], "users": [], "comment": "", "network_applications": [], "destinations": [{"name": "DNS1"}, {"name": "DNS2"}]}, {"name": 2, "custom_fields": [], "sources": [], "type": "SHARED", "services": [{"name": "UDP/53"}, {"name": "TCP/53"}], "users": [], "comment": "", "network_applications": [], "destinations": [{"name": "DNS1"}, {"name": "DNS2"}]}, {"name": 3, "custom_fields": [], "sources": [{"name": "DNS1"}], "type": "APPLICATION", "services": [{"name": "UDP/53"}, {"name": "TCP/53"}], "users": [], "comment": "", "network_applications": [], "destinations": [{"name": "GoogleDNS1"}, {"name": "GoogleDNS2"}, {"name": "DNS2"}]}, {"name": 4, "custom_fields": [], "sources": [{"name": "DNS2"}], "type": "APPLICATION", "services": [{"name": "UDP/53"}, {"name": "TCP/53"}], "users": [], "comment": "", "network_applications": [], "destinations": [{"name": "GoogleDNS1"}, {"name": "GoogleDNS2"}, {"name": "DNS1"}]}]}
+
+# ObjectName	IP/Range/CIDR	Description
+# GoogleDNS1	8.8.8.8	Google DNS
+# GoogleDNS2	8.8.4.4	Google DNS
+# DNS1	10.0.0.53	Zorg Services - DNS server 1
+# DNS2	10.0.1.53	Zorg Services - DNS server 2
+# Consumers	10.0.0.0/16	Zorg Services - Consumers
+# Admins	172.16.72.0/24	Zorg Services - Admins
+
+# Zorg DNS
+# Service objects {'name': 'UDP/53', 'content': [{'protocol': 'UDP', 'port': '53'}], 'custom_fields': []}
+# Service objects {'name': 'TCP/53', 'content': [{'protocol': 'TCP', 'port': '53'}], 'custom_fields': []}
+# Service objects {'name': 'TCP/22', 'content': [{'protocol': 'TCP', 'port': '22'}], 'custom_fields': []}
+
+---
+name: Zorg DNS
+labels: []
+contacts: []
+custom_fields: []
+flows:
+- name: 0
+  custom_fields: []
+  sources:
+  - name: Admins
+  type: APPLICATION
+  services:
+  - name: TCP/22
+  users: []
+  comment: ''
+  network_applications: []
+  destinations:
+  - name: DNS1
+  - name: DNS2
+- name: 1
+  custom_fields: []
+  sources:
+  - name: Consumers
+  type: APPLICATION
+  services:
+  - name: UDP/53
+  - name: TCP/53
+  users: []
+  comment: ''
+  network_applications: []
+  destinations:
+  - name: DNS1
+  - name: DNS2
+- name: 2
+  custom_fields: []
+  sources: []
+  type: SHARED
+  services:
+  - name: UDP/53
+  - name: TCP/53
+  users: []
+  comment: ''
+  network_applications: []
+  destinations:
+  - name: DNS1
+  - name: DNS2
+- name: 3
+  custom_fields: []
+  sources:
+  - name: DNS1
+  type: APPLICATION
+  services:
+  - name: UDP/53
+  - name: TCP/53
+  users: []
+  comment: ''
+  network_applications: []
+  destinations:
+  - name: GoogleDNS1
+  - name: GoogleDNS2
+  - name: DNS2
+- name: 4
+  custom_fields: []
+  sources:
+  - name: DNS2
+  type: APPLICATION
+  services:
+  - name: UDP/53
+  - name: TCP/53
+  users: []
+  comment: ''
+  network_applications: []
+  destinations:
+  - name: GoogleDNS1
+  - name: GoogleDNS2
+  - name: DNS1

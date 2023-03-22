@@ -1,0 +1,16 @@
+---
+- name: Create application network objects
+  hosts: localhost
+  gather_facts: no
+
+  pre_tasks:
+    - name: Load ASMS credential vars (vault capable)
+      include_vars:
+        file: asms-credential.yml
+
+    - name: Load ASMS network objets definition
+      include_vars:
+        file: asms-application-network-objects-data.yml
+
+  roles:
+    - asms-application-new-network-objects

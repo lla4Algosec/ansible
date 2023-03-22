@@ -1,0 +1,107 @@
+# {"name": "Zorg Test", "labels": [], "contacts": [], "custom_fields": [], "flows": [{"subscribed_flows": [{"shared_flow_name": "ALL", "users": [], "placeholder_network_object": [{"name": "ZApp1"}, {"name": "ZApp2"}, {"name": "ZDb1"}, {"name": "ZDb2"}, {"name": "ZDb3"}], "custom_fields": [], "comment": ""}], "shared_application_name": "Zorg DNS", "type": "SUBSCRIBED"}, {"name": 1, "custom_fields": [], "sources": [{"name": "ZApp1"}, {"name": "ZApp2"}], "type": "APPLICATION", "services": [{"name": "TCP/1521"}, {"name": "TCP/3306"}], "users": [], "comment": "", "network_applications": [], "destinations": [{"name": "ZDb1"}, {"name": "ZDb2"}, {"name": "ZDb3"}]}, {"name": 2, "custom_fields": [], "sources": [{"name": "Admins"}], "type": "APPLICATION", "services": [{"name": "TCP/22"}], "users": [], "comment": "", "network_applications": [], "destinations": [{"name": "ZFront1"}, {"name": "ZApp1"}, {"name": "ZApp2"}, {"name": "ZDb1"}, {"name": "ZDb2"}, {"name": "ZDb3"}]}, {"name": 3, "custom_fields": [], "sources": [{"name": "Consumers"}], "type": "APPLICATION", "services": [{"name": "TCP/443"}], "users": [], "comment": "", "network_applications": [], "destinations": [{"name": "ZFront1"}]}, {"name": 4, "custom_fields": [], "sources": [], "type": "SHARED", "services": [{"name": "TCP/443"}], "users": [], "comment": "", "network_applications": [], "destinations": [{"name": "ZFront1"}]}, {"name": 5, "custom_fields": [], "sources": [{"name": "ZFront1"}], "type": "APPLICATION", "services": [{"name": "TCP/8000"}], "users": [], "comment": "", "network_applications": [], "destinations": [{"name": "ZApp1"}, {"name": "ZApp2"}]}]}
+
+# ObjectName	IP/Range/CIDR	Description
+# Consumers	10.0.0.0/16	Zorg Services - Consumers
+# ZFront1	192.168.2.1	Zorg Services - Front server
+# ZApp1	192.168.3.1	Zorg Services - Application server 1
+# ZApp2	192.168.3.2	Zorg Services - Application server 2
+# ZDb1	192.168.4.1	Zorg Services - Database server node 1
+# ZDb2	192.168.4.2	Zorg Services - Database server node 2
+# ZDb3	192.168.4.3	Zorg Services - Database server node 3
+# Admins	172.16.72.0/24	Zorg Services - Admins
+
+# Zorg Test
+# Service objects {'name': 'TCP/443', 'content': [{'protocol': 'TCP', 'port': '443'}], 'custom_fields': []}
+# Service objects {'name': 'TCP/22', 'content': [{'protocol': 'TCP', 'port': '22'}], 'custom_fields': []}
+# Service objects {'name': 'TCP/8000', 'content': [{'protocol': 'TCP', 'port': '8000'}], 'custom_fields': []}
+# Service objects {'name': 'TCP/1521', 'content': [{'protocol': 'TCP', 'port': '1521'}], 'custom_fields': []}
+# Service objects {'name': 'TCP/3306', 'content': [{'protocol': 'TCP', 'port': '3306'}], 'custom_fields': []}
+
+---
+name: Zorg Test
+labels: []
+contacts: []
+custom_fields: []
+flows:
+- subscribed_flows:
+  - shared_flow_name: ALL
+    users: []
+    placeholder_network_object:
+    - name: ZApp1
+    - name: ZApp2
+    - name: ZDb1
+    - name: ZDb2
+    - name: ZDb3
+    custom_fields: []
+    comment: ''
+  shared_application_name: Zorg DNS
+  type: SUBSCRIBED
+- name: 1
+  custom_fields: []
+  sources:
+  - name: ZApp1
+  - name: ZApp2
+  type: APPLICATION
+  services:
+  - name: TCP/1521
+  - name: TCP/3306
+  users: []
+  comment: ''
+  network_applications: []
+  destinations:
+  - name: ZDb1
+  - name: ZDb2
+  - name: ZDb3
+- name: 2
+  custom_fields: []
+  sources:
+  - name: Admins
+  type: APPLICATION
+  services:
+  - name: TCP/22
+  users: []
+  comment: ''
+  network_applications: []
+  destinations:
+  - name: ZFront1
+  - name: ZApp1
+  - name: ZApp2
+  - name: ZDb1
+  - name: ZDb2
+  - name: ZDb3
+- name: 3
+  custom_fields: []
+  sources:
+  - name: Consumers
+  type: APPLICATION
+  services:
+  - name: TCP/443
+  users: []
+  comment: ''
+  network_applications: []
+  destinations:
+  - name: ZFront1
+- name: 4
+  custom_fields: []
+  sources: []
+  type: SHARED
+  services:
+  - name: TCP/443
+  users: []
+  comment: ''
+  network_applications: []
+  destinations:
+  - name: ZFront1
+- name: 5
+  custom_fields: []
+  sources:
+  - name: ZFront1
+  type: APPLICATION
+  services:
+  - name: TCP/8000
+  users: []
+  comment: ''
+  network_applications: []
+  destinations:
+  - name: ZApp1
+  - name: ZApp2

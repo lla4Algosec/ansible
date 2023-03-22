@@ -1,0 +1,56 @@
+---
+# tasks file for aff
+- name: Checking ASMS server availablility
+  uri:
+    url: https://{{ asms_server }}/algosec/suite/login.html
+    validate_certs: no
+
+
+- name: ASMS Authentication (login)
+  uri:
+    url: https://{{ asms_server }}/BusinessFlow/rest/v1/login
+    validate_certs: no
+    method: GET
+    force_basic_auth: yes
+    user: "{{ asms_username }}"
+    password: "{{ asms_password }}"
+    body_format: json
+  register: login
+
+
+- name: ASMS new applications
+  uri:
+    url: https://{{ asms_server }}/BusinessFlow/rest/v1/applications/new
+    validate_certs: no
+    method: POST
+    headers:
+      Cookie: "{{ login.set_cookie }}"
+    body:
+      '{{ asms_application }}'
+    body_format: json
+  register: application
+
+
+- name: Application dump
+  debug:
+    var: application.json
+
+
+- name: ASMS new applications apply
+  uri:
+    url: https://{{ asms_server }}/BusinessFlow/rest/v1/applications/{{application.json.revisionID}}/apply
+    validate_certs: no
+    method: POST
+    headers:
+      Cookie: "{{ login.set_cookie }}"
+  when: asms_application_apply
+
+
+- name: ASMS Authentication (logout)
+  uri:
+    url: https://{{ asms_server }}/BusinessFlow/rest/v1/logout
+    validate_certs: no
+    method: POST
+    headers:
+      Cookie: "{{ login.set_cookie }}"
+    body_format: json

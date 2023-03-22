@@ -1,0 +1,77 @@
+---
+asms_application:
+  name: Zorg DNS
+  labels: []
+  custom_fields: []
+  contacts: []
+  flows:
+  - name: 0
+    comment: Any comment is welcome
+    users: []
+    sources:
+    - name: Admins
+    destinations:
+    - name: DNS1
+    - name: DNS2
+    services:
+    - name: TCP/22
+    type: APPLICATION
+    custom_fields: []
+    network_applications: []
+  - services:
+    - name: UDP/53
+    - name: TCP/53
+    comment:
+    users: []
+    name: 1
+    sources:
+    - name: Consumers
+    destinations:
+    - name: DNS1
+    - name: DNS2
+    custom_fields: []
+    type: APPLICATION
+    network_applications: []
+  - services:
+    - name: UDP/53
+    - name: TCP/53
+    comment:
+    users: []
+    name: 2
+    sources: []
+    destinations:
+    - name: DNS1
+    - name: DNS2
+    custom_fields: []
+    type: SHARED
+    network_applications: []
+  - services:
+    - name: UDP/53
+    - name: TCP/53
+    comment:
+    users: []
+    name: 3
+    sources:
+    - name: DNS1
+    destinations:
+    - name: GoogleDNS1
+    - name: GoogleDNS2
+    - name: DNS2
+    custom_fields: []
+    type: APPLICATION
+    network_applications: []
+  - services:
+    - name: UDP/53
+    - name: TCP/53
+    comment:
+    users: []
+    name: 4
+    sources:
+    - name: DNS2
+    destinations:
+    - name: GoogleDNS1
+    - name: GoogleDNS2
+    - name: DNS1
+    custom_fields: []
+    type: APPLICATION
+    network_applications: []

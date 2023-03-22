@@ -1,0 +1,16 @@
+---
+- name: Create application services
+  hosts: localhost
+  gather_facts: no
+
+  pre_tasks:
+    - name: Load ASMS credential vars (vault capable)
+      include_vars:
+        file: asms-credential.yml
+
+    - name: Load ASMS services definition
+      include_vars:
+        file: asms-application-services-data.yml
+
+  roles:
+    - asms-application-new-services

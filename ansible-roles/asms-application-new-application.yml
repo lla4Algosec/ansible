@@ -1,0 +1,32 @@
+---
+- name: ASMS Create application
+  hosts: localhost
+  gather_facts: no
+
+  pre_tasks:
+    - name: ASMS load credential vars and vault
+      include_vars:
+        file: asms-credential.yml
+
+    - name: Load ASMS network objets definition
+      include_vars:
+        file: asms-application-network-objects-data.yml
+      when: asms_application_with_Network_Objects_and_services
+
+    - name: Load ASMS services definition
+      include_vars:
+        file: asms-application-services-data.yml
+      when: asms_application_with_Network_Objects_and_services
+
+    - name: ASMS load application definition
+      include_vars:
+        file: asms-application-data.yml
+
+  roles:
+    - { role: asms-application-new-network-objects,
+        when: asms_application_with_Network_Objects_and_services }
+
+    - { role: asms-application-new-services,
+        when: asms_application_with_Network_Objects_and_services }
+
+    - asms-application-new-application

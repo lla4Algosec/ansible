@@ -1,0 +1,13 @@
+---
+# Application network objects definition
+# name: Object name
+# content: IP, CIDR, ... to set for the name
+# type: define content type (IP|RANGE|GROUP|ABSTRACT)
+
+asms_network_objects:
+  - { name: GoogleDNS1, content: 8.8.8.8, type: Host}
+  - { name: GoogleDNS2, content: 8.8.8.4, type: Host}
+  - { name: DNS1, content: 10.0.0.53, type: Host}
+  - { name: DNS2, content: 10.0.1.53, type: Host}
+  - { name: Consumers, content: 10.0.0.0/16, type: Range}
+  - { name: Admins, content: 172.16.72.0/24, type: Range}

@@ -1,0 +1,45 @@
+---
+- uri:
+    url: "https://{{ asms_server }}/BusinessFlow/rest/v1/network_services/name/{{item.name}}"
+    validate_certs: no
+    method: GET
+    headers:
+      Cookie: "{{ login.set_cookie }}"
+    body_format: json
+    return_content: yes
+    status_code: 200, 404
+  register: service
+
+# - debug:
+#     var: service.json
+
+# Algosec AppViz name rest API call returns 404 or
+# ok: [localhost] => {
+#     "service.json": {
+#         "createdDate": 1588777574196,
+#         "customFields": [],
+#         "lastUpdateDate": 1588777574204,
+#         "name": "TCP/22",
+#         "origin": "Imported",
+#         "revisionID": 240,
+#         "serviceID": 240,
+#         "services": [
+#             "TCP/22"
+#         ]
+#     }
+# }
+
+# Create AppViz service object when object does not exist (no additional checks)
+- uri:
+    url: https://{{ asms_server }}/BusinessFlow/rest/v1/network_services/new
+    validate_certs: no
+    method: POST
+    headers:
+      Cookie: "{{ login.set_cookie }}"
+    body_format: json
+    body:
+      name: '{{ item.name }}'
+      content:
+      - port: '{{ item.port }}'
+        protocol: '{{ item.protocol }}'
+  when: service.json.name is not defined

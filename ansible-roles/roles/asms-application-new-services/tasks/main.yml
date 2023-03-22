@@ -1,0 +1,31 @@
+---
+# tasks file for aff
+- name: ASMS server availablility check
+  uri:
+    url: https://{{ asms_server }}/algosec/suite/login.html
+    validate_certs: no
+
+- name: ASMS Authentication
+  uri:
+    url: https://{{ asms_server }}/BusinessFlow/rest/v1/login
+    validate_certs: no
+    method: GET
+    force_basic_auth: yes
+    user: "{{ asms_username }}"
+    password: "{{ asms_password }}"
+    body_format: json
+  register: login
+
+
+- name: ASMS create new services
+  include_tasks: helper.yml
+  with_items: "{{ asms_services }}"
+
+- name: ASMS Authentication (logout)
+  uri:
+    url: https://{{ asms_server }}/BusinessFlow/rest/v1/logout
+    validate_certs: no
+    method: POST
+    headers:
+      Cookie: "{{ login.set_cookie }}"
+    body_format: json

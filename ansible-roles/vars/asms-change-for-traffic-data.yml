@@ -1,0 +1,23 @@
+asms_change_request:
+  template: Basic Change Traffic Request
+  fields:
+  - key: subject
+    values:
+    - Ansible traffic Ticket using REST API
+  - key: Change Request Description
+    values:
+    - add here the change request description
+  traffic:
+  - source:
+      items:
+      - name: 8.8.8.8
+      - name: 8.8.8.4
+    destination:
+      items:
+      - name: 192.168.10.0/24
+    service:
+      items:
+      - name: https
+      - name: http
+      - name: dns
+    action: Allow

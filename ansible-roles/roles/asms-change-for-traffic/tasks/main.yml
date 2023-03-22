@@ -1,0 +1,36 @@
+---
+# tasks file for aff
+- name: ASMS Checking server availablility
+  uri:
+    url: https://{{ asms_server }}/algosec/suite/login.html
+    validate_certs: no
+
+
+- name: ASMS Authentication (login)
+  uri:
+    url: https://{{ asms_server }}/FireFlow/api/authentication/authenticate
+    validate_certs: no
+    method: POST
+    body:
+      username: "{{ asms_username }}"
+      password: "{{ asms_password }}"
+      domain: 0
+    body_format: json
+  register: login
+
+
+- name: ASMS traffic change request
+  uri:
+    url: https://{{ asms_server }}/FireFlow/api/change-requests/traffic
+    validate_certs: no
+    method: POST
+    headers:
+      Cookie: "{{ login.set_cookie }}"
+    body_format: json
+    body:
+      '{{ asms_change_request }}'
+  register: results
+
+- name: Print CR
+  debug:
+    var: results.json
