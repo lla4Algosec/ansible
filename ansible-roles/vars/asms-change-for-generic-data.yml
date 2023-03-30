@@ -1,0 +1,13 @@
+---
+asms_change_for_generic_data:
+  template: "Generic Sanofi"
+  fields:
+  - name: "Subject"
+    values:
+    - "Ansible generic request"
+  - name: "Generic_1"
+    values:
+    - "192.168.1.100, 192.168.1.101"
+  - name: "Generic_2"
+    values:
+    - "192.168.10.100, 192.168.10.101"

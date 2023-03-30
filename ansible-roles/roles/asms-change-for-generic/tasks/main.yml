@@ -1,0 +1,39 @@
+---
+# tasks file for aff generic (require version A32.50 and up)
+- name: ASMS Checking server availability
+  uri:
+    url: https://{{ asms_server }}/algosec/suite/login.html
+    validate_certs: no
+
+
+- name: ASMS Authentication (login)
+  uri:
+    url: https://{{ asms_server }}/FireFlow/api/authentication/authenticate
+    validate_certs: no
+    method: POST
+    body:
+      username: "{{ asms_username }}"
+      password: "{{ asms_password }}"
+      domain: 0
+    body_format: json
+  register: login
+
+- name: Print CR data
+  debug:
+    var: asms_change_for_generic_data
+
+- name: ASMS generic change request
+  uri:
+    url: https://{{ asms_server }}/FireFlow/api/change-requests/generic
+    validate_certs: no
+    method: POST
+    headers:
+      Cookie: "{{ login.set_cookie }}"
+    body_format: json
+    body:
+      "{{ asms_change_for_generic_data }}"
+  register: results
+
+- name: Print CR
+  debug:
+    var: results.json
